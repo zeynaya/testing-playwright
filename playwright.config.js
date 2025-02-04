@@ -1,9 +1,14 @@
 // playwright.config.js
-import { defineConfig } from '@playwright/test';
+const { defineConfig } = require('@playwright/test');
 
-export default defineConfig({
-  use: {
-    browserName: 'chromium', // Change to 'firefox' or 'webkit' if needed
-    headless: false, // Set to true if you want tests to run in the background
-  },
+module.exports = defineConfig({
+  projects: [
+    {
+      name: 'Edge', // Project name for CLI
+      use: {
+        channel: 'msedge', // Use Microsoft Edge
+        headless: false,    // Run with UI (set to true if headless mode is needed)
+      },
+    },
+  ],
 });
