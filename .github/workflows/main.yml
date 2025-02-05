@@ -12,16 +12,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # or your preferred version
+          node-version: '18' # Use the Node version you're working with
 
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
       - name: Fix Playwright permissions
         run: chmod +x node_modules/.bin/playwright
 
-      - name: Run Playwright tests
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright Tests
         run: npx playwright test
