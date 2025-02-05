@@ -1,14 +1,9 @@
-// playwright.config.js
-const { defineConfig } = require('@playwright/test');
+import { defineConfig } from '@playwright/test';
 
-module.exports = defineConfig({
-  projects: [
-    {
-      name: 'Edge', // Project name for CLI
-      use: {
-        channel: 'msedge', // Use Microsoft Edge
-        headless: false,    // Run with UI (set to true if headless mode is needed)
-      },
-    },
-  ],
+export default defineConfig({
+  reporter: [['html', { outputFolder: 'playwright-report', open: 'never' }]],
+  use: {
+    headless: false, // Run with browser UI
+    viewport: { width: 1280, height: 720 }, // Adjust viewport size if needed
+  },
 });
