@@ -1,9 +1,8 @@
-import { defineConfig } from '@playwright/test';
+const { defineConfig } = require('@playwright/test');
 
-export default defineConfig({
-  reporter: [['html', { outputFolder: 'playwright-report', open: 'never' }]],
+module.exports = defineConfig({
+  reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
   use: {
-    headless: false, // Run with browser UI
-    viewport: { width: 1280, height: 720 }, // Adjust viewport size if needed
+    headless: true, // ✅ Ensures headless mode (safe for CI)
   },
 });
