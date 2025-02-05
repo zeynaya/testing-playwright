@@ -1,16 +1,15 @@
-import { test, expect } from '@playwright/test';
+const { test, expect, chromium } = require('@playwright/test');
 
-// This ensures the browser opens in headed (visible) mode
-test.use({ headless: false });
+test('Button Click Test', async () => {
+  const browser = await chromium.launch({ headless: true }); // ✅ Set headless mode
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
-test.describe('Button Click Test', () => {
-  test('should verify the button is clickable', async ({ page }) => {
-    await page.goto('https://example.com'); // Replace with your actual website
-    const button = page.locator('button#submit'); // Replace with your button selector
+  await page.goto('https://example.com');
+  const button = await page.locator('button#myButton');
+  await expect(button).toBeVisible();
+  await button.click();
+  await expect(button).toHaveText('Clicked');
 
-    await expect(button).toBeVisible();
-    await expect(button).toBeEnabled();
-    await button.click();
-    await expect(button).toHaveText('Clicked!'); // Adjust based on your app’s behavior
-  });
+  await browser.close();
 });
