@@ -1,13 +1,19 @@
 const {test, expect, chromium} = require('@playwright/test');
 const path = require('path');
+const fs = require('fs');
 
 test('Button Click Test', async () => {
   const browser = await chromium.launch({headless: false});
   const context = await browser.newContext();
   const page =  await context.newPage();
 
-  const filePath = path.join(__dirname, 'test-page.html');
-  const fuleUrl = `file://${filePath}`;
+  const filePath = path.resolve(__dirname, 'test-page.html');
+
+  if(!fs.existsSync(filePath)) {
+    throw new Error(`File not found at path: ${filePath}`);
+  }
+
+  const fileUrl = `file://${filePath}`;
 
   await page.goto(fileUrl);
 
