@@ -5,7 +5,7 @@ test('Button Click Test', async () => {
   const context = await browser.newContext();
   const page = await context.newPage();
 
-  await page.goto('https://example.com');
+  await page.goto('https://amazon.com');
   const button = await page.locator('button#myButton');
   await expect(button).toBeVisible();
   await button.click();
