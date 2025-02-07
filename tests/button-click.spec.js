@@ -1,6 +1,10 @@
-const {test, expect, chromium} = require('@playwright/test');
+const {test, expect, devices, chromium} = require('@playwright/test');
 const path = require('path');
 const fs = require('fs');
+
+const iPhone13 = devices['iPhone 13'];
+
+test.use({ ...iPhone13 });
 
 test('Button Click Test', async () => {
   const browser = await chromium.launch({headless: false});
