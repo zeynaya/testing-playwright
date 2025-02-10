@@ -1,8 +1,9 @@
-const { defineConfig } = require('@playwright/test');
+import { defineConfig, devices } from ('@playwright/test');
 
-module.exports = defineConfig({
-  reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
+export default defineConfig ({
   use: {
-    headless: true, 
+    ...devices['iPhone 13'],
+    headless: false,
+    colorScheme: 'dark',
   },
 });
