@@ -1,16 +1,31 @@
-const { test, expect } = require('@playwright/test');
-const path = require('path');
-const fs = require('fs');
+import { test as base, expect } from '@playwright/test';
+import path from 'path';
+import fs from 'fs';
 
-test('Button Click Test', async ({ page }) => {
-  const filePath = path.resolve(__dirname, 'test-page.html');
 
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`File not found at path: ${filePath}`);
-  }
+//extend test wiht a fixture for loading the locl html file
+const test = base.extend({
+  fileUrl: async({}, use) => {
+    const filePath = path.resolve(__dirname, 'test-page.html'); 
+    if(!fs.existsSync(filePath)) {
+      throw new Error(`File not found at path: ${filePath}`);
+    }
+    const fileUrl = `file://${filePath}`;
+    await use(fileUrl);
+  },
+});
 
-  const fileUrl = `file://${filePath}`;
+//test hooks for additinal setup/cleanup if needed
+test.beforeEach(async ({page}) => {
+  console.log('Starting a new test...');
+});
 
+test.afterEach(async () => {
+  console.log('Test completed!');
+});
+
+//main test using the fixture
+test('Button Click Test', async ({ page, fileUrl}) => {
   await page.goto(fileUrl);
 
   const button = page.locator('button#myButton');
