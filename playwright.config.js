@@ -15,4 +15,9 @@ export default defineConfig({
       use: devices['iPhone 13'],  // Responsive mobile testing
     },
   ],
+  reporter: [
+    ['list'],  // Simple output to the console
+    ['json', { outputFile: 'test-results.json' }],  // JSON output
+    ['html', { open: 'always', outputFolder: 'playwright-report' }],  // HTML report
+  ],
 });
