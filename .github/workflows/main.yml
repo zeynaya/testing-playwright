@@ -28,10 +28,17 @@ jobs:
       - name: Fix Playwright permissions
         run: chmod +x node_modules/.bin/playwright
 
-
-        
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
+      # Set Proxy Environment Variables
+      - name: Set Proxy Environment Variables
+        run: |
+          echo "HTTP_PROXY=http://123.45.67.89:8080" >> $GITHUB_ENV
+          echo "HTTPS_PROXY=http://123.45.67.89:8080" >> $GITHUB_ENV
+          # Optional: If authentication is needed for the proxy
+          echo "HTTP_PROXY_USERNAME=your-username" >> $GITHUB_ENV
+          echo "HTTP_PROXY_PASSWORD=your-password" >> $GITHUB_ENV
 
       - name: Run Playwright Tests
         run: xvfb-run --auto-servernum -- npx playwright test
